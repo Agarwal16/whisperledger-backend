@@ -1,0 +1,30 @@
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
+    "build": "pnpm run typecheck && pnpm -r --if-present run build",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./whisperledger-app\" --filter \"./api-server\" --filter \"./scripts\" --if-present run typecheck",
+    "app-dev": "pnpm --dir whisperledger-app run dev",
+    "app-android": "pnpm --dir whisperledger-app run android",
+    "app-android:dev": "pnpm --dir whisperledger-app run android:dev",
+    "app-ios": "pnpm --dir whisperledger-app run ios",
+    "app-ios:dev": "pnpm --dir whisperledger-app run ios:dev",
+    "api-dev": "pnpm --dir api-server run dev",
+    "android": "pnpm --dir whisperledger-app run android:dev",
+    "ios": "pnpm --dir whisperledger-app run ios:dev"
+  },
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "expo-modules-autolinking>commander": "7.2.0",
+      "balanced-match": "1.0.2"
+    }
+  }
+}
